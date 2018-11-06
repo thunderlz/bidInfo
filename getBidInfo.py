@@ -64,8 +64,8 @@ def Main(keyword):
 
 
 if __name__ == '__main__':
-    p=Pool(1)
-    for keyword in ['南方电网','中国烟草','中国邮政','国家电网']:
+    p=Pool()
+    for keyword in ['工商银行','建设银行','中国银行','交通银行']:
         p.apply_async(Main,args=(keyword,))
 
     p.close()
