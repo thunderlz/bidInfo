@@ -12,7 +12,7 @@ def getChinabiddingHtml(url,headers):
     return BeautifulSoup(resp.content,'html5lib')
 
 def getTable(bsObj,head):
-    tb=['','项目名称','是否收藏','类型','省份','行业','时间','网址']
+    tb=[]
     table=bsObj.find('table',{'class':'table_body'})
     Rows=table.find_all('tr',{'class':('listrow2','listrow1')})
     for Row in Rows:
@@ -37,10 +37,11 @@ def Main():
 
     with open('bid.csv','wt') as f:
         csvWriter=csv.writer(f)
+        csvWriter.writerow(['','项目名称','是否收藏','类型','省份','行业','时间','网址'])
         bsObj=getChinabiddingHtml(url,headers)
-        print(getTable(bsObj,head))
+        # print(getTable(bsObj,head))
         csvWriter.writerows(getTable(bsObj,head))
-        print(bsObj.find('a',text='后一页'))
+        # print(bsObj.find('a',text='后一页'))
         while bsObj.find('a',text='后一页'):
             link=bsObj.find('a',text='后一页')['href']
             print(link)
