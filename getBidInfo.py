@@ -10,8 +10,11 @@ def getChinabiddingHtml(url,headers):
             resp=s.get(url,headers=headers,timeout=10)
         except:
             print('timeout')
-    return BeautifulSoup(resp.content,'html5lib')
-
+    if resp.status_code==200:
+        return BeautifulSoup(resp.content,'html5lib')
+    else:
+        print(resp.status_code)
+        return None
 def getTable(bsObj,head):
     tb=[]
     table=bsObj.find('table',{'class':'table_body'})
@@ -30,10 +33,14 @@ def Main(keyword):
     # url='https://www.chinabidding.cn/search/searchzbw/search2?keywords=招标代理服务&areaid=&categoryid=&b_date=month'
     # url='https://www.chinabidding.cn/search/searchzbw/search2?keywords={}&areaid=&categoryid=&b_date=month'
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
-        , 'Host': 'www.chinabidding.cn/'
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+        ,'Accept-Language': 'zh-CN,zh;q=0.9'
+        ,'Accept-Encoding': 'gzip, deflate, br'
+        ,'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+        ,'Host': 'www.chinabidding.cn'
         , 'Connection': 'keep-alive'
         , 'Cache-Control': 'max-age=0'}
+
     head='https://www.chinabidding.cn'
 
     with open('{}.csv'.format(keyword),'wt') as f:
@@ -42,9 +49,10 @@ def Main(keyword):
 
         print(keyword)
         url='https://www.chinabidding.cn/search/searchzbw/search2?keywords={}&areaid=&categoryid=&b_date=month'.format(keyword)
+        # print(url)
         bsObj=getChinabiddingHtml(url,headers)
-        # print(getTable(bsObj,head))
-        csvWriter.writerows(getTable(bsObj,head))
+        # print(getTable(bsObj,head),111)
+        # csvWriter.writerows(getTable(bsObj,head))
         # print(bsObj.find('a',text='后一页'))
         while bsObj.find('a',text='后一页'):
             link=bsObj.find('a',text='后一页')['href']
@@ -56,9 +64,10 @@ def Main(keyword):
 
 
 if __name__ == '__main__':
-    p=Pool(6)
-    for keyword in ['招标代理','中国铁塔','邮储银行']:
+    p=Pool(1)
+    for keyword in ['南方电网','中国烟草','中国邮政','国家电网']:
         p.apply_async(Main,args=(keyword,))
+
     p.close()
     p.join()
     
