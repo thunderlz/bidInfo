@@ -1,3 +1,7 @@
+# 爬虫公共类
+# -*- coding: utf-8 -*-
+# code by leiz
+
 import requests
 from bs4 import BeautifulSoup
 

@@ -1,4 +1,6 @@
 # 中国招标采购网
+# -*- coding: utf-8 -*-
+# code by leiz
 
 import requests
 from bs4 import BeautifulSoup
@@ -73,7 +75,7 @@ headers = {
 
 if __name__ == '__main__':
     p=Pool(2)
-    for keyword in ['中国电信股份有限公司广东分公司']:
+    for keyword in ['招标代理中介','招标代理机构']:
         p.apply_async(Main,args=(keyword,))
 
     p.close()

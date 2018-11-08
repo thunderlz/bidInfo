@@ -1,4 +1,6 @@
 # 广州市政府采购平台
+# -*- coding: utf-8 -*-
+# code by leiz
 
 import requests
 from bs4 import BeautifulSoup
@@ -23,8 +25,8 @@ def Main():
             print(url)
             j=json.loads(pachong.getChinabiddingHtml(url,pachong.headers,params))
             print(j)
-            for row in range(10):
-                print(j['rows'][row]['info_key'])
+            for row in range(100):
+                # print(j['rows'][row]['info_key'])
                 csvWriter.writerow([j['rows'][row]['info_key'],j['rows'][row]['info_path'],j['rows'][row]['title'],j['rows'][row]['update_time']])
             f.flush()
     return
