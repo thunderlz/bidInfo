@@ -6,16 +6,17 @@ import requests
 from bs4 import BeautifulSoup
 
 class pachong():
-    headers = {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
-        , 'Accept-Language': 'zh-CN,zh;q=0.9'
-        , 'Accept-Encoding': 'gzip, deflate, br'
-        ,'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
-        , 'Host': 'gzg2b.gzfinance.gov.cn'
-        , 'Connection': 'keep-alive'
-        , 'Cache-Control': 'max-age=0'}
+    def __init__(self,host):
+        self.headers = {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+            , 'Accept-Language': 'zh-CN,zh;q=0.9'
+            , 'Accept-Encoding': 'gzip, deflate, br'
+            ,'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+            , 'Host': host
+            , 'Connection': 'keep-alive'
+            , 'Cache-Control': 'max-age=0'}
 
-    def getChinabiddingHtml(url, headers, params=''):
+    def getChinabiddingHtml(self,url, headers, params=''):
         s = requests.Session()
         for i in range(3):
             try:
@@ -29,5 +30,5 @@ class pachong():
             return None
 
 if __name__=='__main__':
-    p=pachong()
+
     print(pachong.headers)
