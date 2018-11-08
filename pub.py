@@ -21,8 +21,10 @@ class pachong():
         for i in range(3):
             try:
                 resp = s.get(url, headers=headers, params=params, timeout=10)
+                break
             except:
                 print('timeout for {}'.format(i + 1))
+
         if resp.status_code == 200:
             return resp.content
         else:

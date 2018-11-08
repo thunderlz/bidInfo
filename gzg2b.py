@@ -23,7 +23,7 @@ def Main():
         url='http://gzg2b.gzfinance.gov.cn/gzgpimp/portalsys/portal.do?method=queryHomepageList&t_k=null'
         for i in range(1,1099):
             params={'current': i,'rowCount': 10,'searchPhrase':'' ,'title_name':'' ,'porid': 'gsgg','kwd':'' }
-            print(url)
+            print(i)
             j=json.loads(p.getChinabiddingHtml(url,p.headers,params))
             print(j)
             for row in range(10):
