@@ -18,7 +18,7 @@ def Main():
 
     with open('./广州市政府采购平台/info.csv','wt') as f:
         csvWriter=csv.writer(f)
-        csvWriter.writerow(['类型','网址','名称','时间'])
+        csvWriter.writerow(['类型','网址','名称','创建时间'])
 
         url='http://gzg2b.gzfinance.gov.cn/gzgpimp/portalsys/portal.do?method=queryHomepageList&t_k=null'
         for i in range(1,1099):
@@ -27,8 +27,7 @@ def Main():
             j=json.loads(p.getChinabiddingHtml(url,p.headers,params))
             print(j)
             for row in range(10):
-                # print(j['rows'][row]['info_key'])
-                csvWriter.writerow([j['rows'][row]['info_key'],j['rows'][row]['info_path'],j['rows'][row]['title'],j['rows'][row]['update_time']])
+                csvWriter.writerow([j['rows'][row]['info_key'],j['rows'][row]['info_path'],j['rows'][row]['title'],j['rows'][row]['creation_time']])
             f.flush()
     return
 

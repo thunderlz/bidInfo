@@ -74,8 +74,8 @@ headers = {
         , 'Cache-Control': 'max-age=0'}
 
 if __name__ == '__main__':
-    p=Pool(2)
-    for keyword in ['招标代理中介','招标代理机构']:
+    p=Pool(6)
+    for keyword in ['']:
         p.apply_async(Main,args=(keyword,))
 
     p.close()
